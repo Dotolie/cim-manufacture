@@ -322,7 +322,7 @@ int mac_setting1(char *iface, char *macaddress)
 	char strMac[10] = {0};
 	unsigned int mac0, mac1;
 	char pAgrs[50] = {0};
-	char cmd[100] = {0};
+	char cmd[200] = {0};
 
 	if (iface == NULL) {
 	    return -1;
@@ -364,6 +364,7 @@ int mac_setting1(char *iface, char *macaddress)
 //		printf("cmd1 = %s\n", cmd);
 		system(cmd);
 		
+		memset(cmd, 0, sizeof(cmd));
 		sprintf(cmd, "printf '\\x%02x\\x%02x\\x%02x\\x%02x' | dd of=/sys/bus/platform/drivers/imx_ocotp/21bc000.ocotp/imx-ocotp0/nvmem bs=4 count=1 skip=34 conv=notrunc ", mac_data[2], mac_data[3], mac_data[4], mac_data[5]);
 //		printf("cmd2 = %s\n", cmd);
 		system(cmd);
