@@ -360,12 +360,12 @@ int mac_setting1(char *iface, char *macaddress)
 			printf("mac_data[%d] = 0x%02x\n", i, mac_data[i]);
 
 		memset(cmd, 0, sizeof(cmd));
-		sprintf(cmd, "printf '\\x%02x\\x%02x' | dd of=/sys/bus/platform/drivers/imx_ocotp/21bc000.ocotp/imx-ocotp0/nvmem bs=4 count=1 skip=35 conv=notrunc ", mac_data[0], mac_data[1]);
+		sprintf(cmd, "printf '\\x%02x\\x%02x' | dd of=/sys/bus/nvmem/devices/imx_ocotp0/nvmem bs=4 count=1 skip=35 conv=notrunc ", mac_data[1], mac_data[0]);
 //		printf("cmd1 = %s\n", cmd);
 		system(cmd);
 		
 		memset(cmd, 0, sizeof(cmd));
-		sprintf(cmd, "printf '\\x%02x\\x%02x\\x%02x\\x%02x' | dd of=/sys/bus/platform/drivers/imx_ocotp/21bc000.ocotp/imx-ocotp0/nvmem bs=4 count=1 skip=34 conv=notrunc ", mac_data[2], mac_data[3], mac_data[4], mac_data[5]);
+		sprintf(cmd, "printf '\\x%02x\\x%02x\\x%02x\\x%02x' | dd of=/sys/bus/nvmem/devices/imx-ocotp0/nvmem bs=4 count=1 skip=34 conv=notrunc ", mac_data[3], mac_data[2], mac_data[5], mac_data[4]);
 //		printf("cmd2 = %s\n", cmd);
 		system(cmd);
 		
@@ -377,7 +377,7 @@ int mac_setting1(char *iface, char *macaddress)
 		printf("\n### MAC Write <%s> SUCCESS ###\n\n", pAgrs);
     }
 
-	set_mac_address(iface, pAgrs);
+//	set_mac_address(iface, pAgrs);
 
 exit:
 
